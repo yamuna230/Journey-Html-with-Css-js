@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+    <title>Calculator</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 600;
+        }
+
+        body {
+            margin: 0;
+            height: 100vh;
+            background-color: #EAE4D5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        h2 {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #EAE4D5;
+            text-shadow: 0 0 3px #1c1c1c;
+
+
+        }
+
+        .center {
+            background-color: #DA6C6C;
+            padding: 15px 15px;
+            border-radius: 10px;
+            border: 2px solid #2A4759;
+            box-shadow: 0 0 15px black;
+        }
+
+        .display {
+            width: 100%;
+            height: 60px;
+            margin-bottom: 15px;
+            text-align: right;
+            padding: 10px;
+            font-size: 25px;
+            color: #1c1c1c;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .btns {
+            width: 60px;
+            height: 40px;
+            margin: 5px;
+            border-radius: 10px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .btns:hover {
+            color: black;
+            background-color: rgb(235, 158, 85);
+        }
+
+        .second #equal {
+            width: 135px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="center">
+        <h2>Calculator</h2>
+        <div>
+            <input type="text" class="display" id="display" disabled />
+        </div>
+        <div class="second">
+            <div>
+                <button class="btns" onclick="clearDis()">AC</button>
+                <button class="btns" onclick="delLast()"> DEL</button>
+                <button class="btns" onclick="appendvalue('%')">%</button>
+                <button class="btns" onclick="appendvalue('/')">/</button>
+            </div>
+            <div>
+                <button class="btns" onclick="appendvalue('7')">7</button>
+                <button class="btns" onclick="appendvalue('8')">8</button>
+                <button class="btns" onclick="appendvalue('9')">9</button>
+                <button class="btns" onclick="appendvalue('*')">*</button>
+            </div>
+            <div>
+                <button class="btns" onclick="appendvalue('4')">4</button>
+                <button class="btns" onclick="appendvalue('5')">5</button>
+                <button class="btns" onclick="appendvalue('6')">6</button>
+                <button class="btns" onclick="appendvalue('-')">-</button>
+            </div>
+            <div>
+                <button class="btns" onclick="appendvalue('1')">1</button>
+                <button class="btns" onclick="appendvalue('2')">2</button>
+                <button class="btns" onclick="appendvalue('3')">3</button>
+                <button class="btns" onclick="appendvalue('+')">+</button>
+            </div>
+            <div>
+                <button class="btns" onclick="appendvalue('0')">0</button>
+                <button class="btns" onclick="appendvalue('.')">.</button>
+                <button class="btns" id="equal" onclick="calculate()">=</button>
+            </div>
+        </div>
+
+        <script>
+            const display = document.getElementById("display");
+
+            function appendvalue(num) {
+                if (num === '.') {
+                    const current = display.value;
+                    const parts = current.split(/[\+\-\*\/%]/);
+                    const lastPart = parts[parts.length - 1];
+
+                    if (lastPart.includes('.')) {
+                        return;
+                    }
+                }
+
+                display.value += num;
+            }
+
+            function clearDis() {
+                display.value = "";
+            }
+
+            function delLast() {
+                display.value = display.value.slice(0, -1);
+            }
+
+            function calculate() {
+                try {
+                    display.value = eval(display.value);
+                } catch {
+                    display.value = "Error";
+                }
+            }
+
+        </script>
+</body>
+
+</html>
